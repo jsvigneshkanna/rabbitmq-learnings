@@ -25,7 +25,11 @@ Consumer: A consumer is an application that receives messages. Consuming a messa
 docker pull rabbitmq
 
 # Run the rabbitmq image
-docker run -d --hostname my-rabbit --name some-rabbit -p 8080:15672 -p 5672:5672 rabbitmq
+docker run --name rmq -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password rabbitmq
+
+# Enabling the management plugin
+docker exec -it rmq
+rabbitmq-plugins enable rabbitmq_management
 
 # Access the rabbitmq management console
 http://localhost:8080
@@ -35,3 +39,10 @@ username: guest
 password: guest
 
 ```
+
+## Node JS application
+
+#### Pre-requisite:
+
+1. NodeJS
+2. Install amqplib package
